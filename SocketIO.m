@@ -390,6 +390,9 @@ NSString* const SocketIOException = @"SocketIOException";
         }
 
         for (id<SocketIONamespaceDelegate> delegate in _namespaceDelegates) {
+            if (delegate == nil) {
+                continue;
+            }
             [delegate socketIO:self didSendMessage:packet];
         }
     }
@@ -417,9 +420,10 @@ NSString* const SocketIOException = @"SocketIOException";
         // Send the connected packet for namespaces
         // so the server knows what it's dealing with.
         for (id<SocketIONamespaceDelegate> delegate in _namespaceDelegates) {
-            if (delegate != nil) {
-                [self sendConnectForNamespace:[delegate endpoint]];
+            if (delegate == nil) {
+                continue;
             }
+            [self sendConnectForNamespace:[delegate endpoint]];
         }
         return;
     } else {
@@ -432,6 +436,9 @@ NSString* const SocketIOException = @"SocketIOException";
     _isConnecting = NO;
 
     for (id<SocketIONamespaceDelegate> delegate in _namespaceDelegates) {
+        if (delegate == nil) {
+            continue;
+        }
         if ([packet.endpoint isEqualToString:[delegate endpoint]]) {
             [delegate socketIODidConnect:self];
         }
@@ -587,6 +594,9 @@ NSString* const SocketIOException = @"SocketIOException";
                         [_delegate socketIO:self didReceiveMessage:packet];
                     }
                     for (id<SocketIONamespaceDelegate> delegate in _namespaceDelegates) {
+                        if (delegate == nil) {
+                            continue;
+                        }
                         if (![packet.endpoint isEqualToString:[delegate endpoint]]) {
                             continue;
                         }
@@ -602,6 +612,9 @@ NSString* const SocketIOException = @"SocketIOException";
                         [_delegate socketIO:self didReceiveJSON:packet];
                     }
                     for (id<SocketIONamespaceDelegate> delegate in _namespaceDelegates) {
+                        if (delegate == nil) {
+                            continue;
+                        }
                         if (![packet.endpoint isEqualToString:[delegate endpoint]]) {
                             continue;
                         }
@@ -620,6 +633,9 @@ NSString* const SocketIOException = @"SocketIOException";
                         [_delegate socketIO:self didReceiveEvent:packet];
                     }
                     for (id<SocketIONamespaceDelegate> delegate in _namespaceDelegates) {
+                        if (delegate == nil) {
+                            continue;
+                        }
                         if (![packet.endpoint isEqualToString:[delegate endpoint]]) {
                             continue;
                         }
@@ -708,6 +724,9 @@ NSString* const SocketIOException = @"SocketIOException";
             [_delegate socketIODidDisconnect:self disconnectedWithError:error];
         }
         for (id<SocketIONamespaceDelegate> delegate in _namespaceDelegates) {
+            if (delegate == nil) {
+                continue;
+            }
             [delegate socketIODidDisconnect:self disconnectedWithError:error];
         }
     }
@@ -719,6 +738,9 @@ NSString* const SocketIOException = @"SocketIOException";
         [_delegate socketIO:self onError:error];
     }
     for (id<SocketIONamespaceDelegate> delegate in _namespaceDelegates) {
+        if (delegate == nil) {
+            continue;
+        }
         [delegate socketIO:self onError:error];
     }
 }
@@ -776,6 +798,9 @@ NSString* const SocketIOException = @"SocketIOException";
     }
 
     for (id<SocketIONamespaceDelegate> delegate in _namespaceDelegates) {
+        if (delegate == nil) {
+            continue;
+        }
         [delegate socketIO:self onError:err];
     }
 }
@@ -867,6 +892,9 @@ NSString* const SocketIOException = @"SocketIOException";
         }
 
         for (id<SocketIONamespaceDelegate> delegate in _namespaceDelegates) {
+            if (delegate == nil) {
+                continue;
+            }
             [delegate socketIO:self onError:error];
         }
         
