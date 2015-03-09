@@ -417,7 +417,9 @@ NSString* const SocketIOException = @"SocketIOException";
         // Send the connected packet for namespaces
         // so the server knows what it's dealing with.
         for (id<SocketIONamespaceDelegate> delegate in _namespaceDelegates) {
-            [self sendConnectForNamespace:[delegate endpoint]];
+            if (delegate != nil) {
+                [self sendConnectForNamespace:[delegate endpoint]];
+            }
         }
         return;
     } else {

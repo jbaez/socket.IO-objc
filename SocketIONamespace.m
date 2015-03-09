@@ -62,7 +62,7 @@
     self = [super init];
     if (self) {
         _socket = socket;
-        _endpoint = endpoint;
+        _endpoint = [endpoint copy];
         _delegate = delegate;
 
         [_socket addNamespaceDelegate:self];
